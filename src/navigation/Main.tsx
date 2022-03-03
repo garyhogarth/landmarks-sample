@@ -1,35 +1,19 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { List } from '../screens/List';
-import { TextDemo, ButtonDemo, FormDemo } from '../screens/Demos';
+import { Map } from '../screens/Map';
+import { Landmark } from '../screens/Landmark';
 
 export type MainStackParams = {
-  List: undefined;
-  TextDemo: undefined;
-  FormDemo: undefined;
-  ButtonDemo: undefined;
+  Map: undefined;
+  Landmark: undefined;
 };
 
 const MainStack = createStackNavigator<MainStackParams>();
 
 export const Main = () => (
   <MainStack.Navigator>
-    <MainStack.Screen name="List" component={List} />
-    <MainStack.Screen
-      name="TextDemo"
-      component={TextDemo}
-      options={{ headerTitle: 'Text Demo' }}
-    />
-    <MainStack.Screen
-      name="FormDemo"
-      component={FormDemo}
-      options={{ headerTitle: 'Button Demo' }}
-    />
-    <MainStack.Screen
-      name="ButtonDemo"
-      component={ButtonDemo}
-      options={{ headerTitle: 'Button Demo' }}
-    />
+    <MainStack.Screen name="Map" component={Map} />
+    <MainStack.Screen name="Landmark" component={Landmark} />
   </MainStack.Navigator>
 );
