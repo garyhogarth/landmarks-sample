@@ -12,7 +12,11 @@ export type MainStackParams = {
 const MainStack = createStackNavigator<MainStackParams>();
 
 export const Main = () => (
-  <MainStack.Navigator>
+  <MainStack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
     <MainStack.Screen name="Map" component={Map} />
     <MainStack.Screen name="Landmark" component={Landmark} />
   </MainStack.Navigator>

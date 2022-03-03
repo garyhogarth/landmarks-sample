@@ -1,20 +1,18 @@
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+// import { useNavigation } from '@react-navigation/native';
+// import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from '../components/Button';
+import { StyleSheet, View } from 'react-native';
+import MapView from 'react-native-maps';
 
-import colors from '../constants/colors';
-import { MainStackParams } from '../navigation/Main';
+// import { MainStackParams } from '../navigation/Main';
 
-type NavigationProp = StackNavigationProp<MainStackParams, 'Map'>;
+// type MapNavigation = StackNavigationProp<MainStackParams, 'Map'>;
 
 export const Map = () => {
-  const { navigate } = useNavigation<NavigationProp>();
+  // const { navigate } = useNavigation<MapNavigation>();
   return (
     <View style={styles.container}>
-      <Text>Map Screen</Text>
-      <Button onPress={() => navigate('Landmark')}>Landmark Screen</Button>
+      <MapView style={styles.map} />
     </View>
   );
 };
@@ -22,7 +20,9 @@ export const Map = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
-    padding: 10,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+    flex: 1,
   },
 });
