@@ -2,11 +2,11 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Map } from '../screens/Map';
-import { Landmark } from '../screens/Landmark';
+import { Landmark, LandmarkRecord } from '../screens/Landmark';
 
 export type MainStackParams = {
   Map: undefined;
-  Landmark: undefined;
+  Landmark: { landmark?: LandmarkRecord } | undefined;
 };
 
 const MainStack = createStackNavigator<MainStackParams>();
