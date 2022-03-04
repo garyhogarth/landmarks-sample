@@ -1,8 +1,9 @@
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Image } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
+import { SharedElement } from 'react-navigation-shared-element';
 import { Button } from '../components/Button';
 
 import colors from '../constants/colors';
@@ -18,21 +19,27 @@ export type LandmarkRecord = {
   description: string;
   image: string;
 };
-type LandmarkScreenRouteProp = RouteProp<MainStackParams, 'Landmark'>;
-type LandmarkNavigationProp = StackNavigationProp<MainStackParams, 'Landmark'>;
 
-export const Landmark = () => {
-  const { goBack } = useNavigation<LandmarkNavigationProp>();
-  const { params } = useRoute<LandmarkScreenRouteProp>();
-  const { landmark } = params || {};
+type LandmarkScreenProps = {
+  route: RouteProp<MainStackParams, 'Landmark'>;
+  navigation: StackNavigationProp<MainStackParams, 'Landmark'>;
+};
+
+export const Landmark = ({ route, navigation }: LandmarkScreenProps) => {
+  const { landmark } = route.params || {};
   if (!landmark) {
     return null;
   }
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: landmark.image }} />
-      <Button onPress={goBack}>Go Back</Button>
-      <Text>{landmark.name}</Text>
+      <SharedElement id={`landmark.${landmark.id}.photo`}>
+        <Image style={styles.image} source={{ uri: landmark.image }} />
+      </SharedElement>
+      <Button onPress={navigation.goBack}>Go Back</Button>
+
+      <SharedElement id={`landmark.${landmark.id}.name`}>
+        <Text>{landmark.name}</Text>
+      </SharedElement>
       <Text>{landmark.description}</Text>
     </View>
   );

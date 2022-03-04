@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { ImageBackground, Pressable, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import { Entypo } from '@expo/vector-icons';
 // Importing directly from the JSON for now
@@ -11,6 +11,7 @@ import { MainStackParams } from '../navigation/Main';
 import { FlatList } from 'react-native-gesture-handler';
 import colors from '../constants/colors';
 import { Text } from 'react-native';
+import { SharedElement } from 'react-navigation-shared-element';
 
 type MapNavigationProp = StackNavigationProp<MainStackParams, 'Map'>;
 
@@ -45,17 +46,22 @@ export const Map = () => {
           horizontal
           decelerationRate="fast"
           snapToInterval={300}
-          renderItem={({ item }) => (
+          renderItem={({ item: landmark }) => (
             <Pressable
               style={styles.landmarkCard}
-              onPress={() => navigate('Landmark', { landmark: item })}
+              onPress={() => navigate('Landmark', { landmark })}
             >
-              <ImageBackground
-                style={styles.landmarkImage}
-                source={{ uri: item.image }}
-              >
-                <Text style={styles.landmarkName}>{item.name}</Text>
-              </ImageBackground>
+              <SharedElement id={`landmark.${landmark.id}.photo`}>
+                <Image
+                  style={styles.landmarkImage}
+                  source={{ uri: landmark.image }}
+                />
+              </SharedElement>
+              <View style={styles.landmarkCardInner}>
+                <SharedElement id={`landmark.${landmark.id}.name`}>
+                  <Text style={styles.landmarkName}>{landmark.name}</Text>
+                </SharedElement>
+              </View>
             </Pressable>
           )}
           ListFooterComponent={() => (
@@ -93,12 +99,15 @@ const styles = StyleSheet.create({
     height: 150,
     marginLeft: 32,
   },
-  landmarkImage: {
-    borderRadius: 16,
-    width: 300,
-    height: 150,
+  landmarkCardInner: {
+    ...StyleSheet.absoluteFillObject,
     alignItems: 'flex-start',
     justifyContent: 'flex-end',
+  },
+  landmarkImage: {
+    ...StyleSheet.absoluteFillObject,
+    width: 268,
+    height: 150,
   },
   landmarkName: {
     fontSize: 32,

@@ -16,7 +16,7 @@ jest.mock('@react-navigation/native', () => {
 });
 
 describe('Map', () => {
-  it('renders the map screen', () => {
+  it('renders the all the landmark markers', () => {
     render(<Map />);
   });
 });

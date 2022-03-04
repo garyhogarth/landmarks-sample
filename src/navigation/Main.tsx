@@ -1,15 +1,15 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import { Map } from '../screens/Map';
 import { Landmark, LandmarkRecord } from '../screens/Landmark';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 export type MainStackParams = {
   Map: undefined;
   Landmark: { landmark?: LandmarkRecord } | undefined;
 };
 
-const MainStack = createStackNavigator<MainStackParams>();
+const MainStack = createSharedElementStackNavigator<MainStackParams>();
 
 export const Main = () => (
   <MainStack.Navigator
@@ -18,6 +18,16 @@ export const Main = () => (
     }}
   >
     <MainStack.Screen name="Map" component={Map} />
-    <MainStack.Screen name="Landmark" component={Landmark} />
+    <MainStack.Screen
+      name="Landmark"
+      component={Landmark}
+      sharedElements={route => {
+        const { landmark } = route.params;
+        return [
+          `landmark.${landmark.id}.photo`,
+          `landmark.${landmark.id}.name`,
+        ];
+      }}
+    />
   </MainStack.Navigator>
 );
