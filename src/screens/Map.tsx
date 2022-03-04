@@ -58,9 +58,7 @@ export const Map = () => {
                 />
               </SharedElement>
               <View style={styles.landmarkCardInner}>
-                <SharedElement id={`landmark.${landmark.id}.name`}>
-                  <Text style={styles.landmarkName}>{landmark.name}</Text>
-                </SharedElement>
+                <Text style={styles.landmarkName}>{landmark.name}</Text>
               </View>
             </Pressable>
           )}
@@ -105,7 +103,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   landmarkImage: {
-    ...StyleSheet.absoluteFillObject,
     width: 268,
     height: 150,
   },

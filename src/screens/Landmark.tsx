@@ -1,11 +1,12 @@
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Image } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { SharedElement } from 'react-navigation-shared-element';
-import { Button } from '../components/Button';
+import i18n from 'i18n-js';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
 
+import { Button } from '../components/Button';
 import colors from '../constants/colors';
 import { MainStackParams } from '../navigation/Main';
 
@@ -20,27 +21,43 @@ export type LandmarkRecord = {
   image: string;
 };
 
-type LandmarkScreenProps = {
-  route: RouteProp<MainStackParams, 'Landmark'>;
-  navigation: StackNavigationProp<MainStackParams, 'Landmark'>;
-};
+export type LandmarkScreenRouteProp = RouteProp<MainStackParams, 'Landmark'>;
+export type LandmarkScreenNavigationProp = StackNavigationProp<
+  MainStackParams,
+  'Landmark'
+>;
 
-export const Landmark = ({ route, navigation }: LandmarkScreenProps) => {
-  const { landmark } = route.params || {};
-  if (!landmark) {
-    return null;
-  }
+export const Landmark = () => {
+  // Extract the route parameters
+  const route = useRoute<LandmarkScreenRouteProp>();
+  let { landmark } = route.params || {};
+  // landmark = null;
+
+  const { goBack } = useNavigation<LandmarkScreenNavigationProp>();
+
   return (
     <View style={styles.container}>
-      <SharedElement id={`landmark.${landmark.id}.photo`}>
-        <Image style={styles.image} source={{ uri: landmark.image }} />
-      </SharedElement>
-      <Button onPress={navigation.goBack}>Go Back</Button>
-
-      <SharedElement id={`landmark.${landmark.id}.name`}>
-        <Text>{landmark.name}</Text>
-      </SharedElement>
-      <Text>{landmark.description}</Text>
+      {landmark ? (
+        <>
+          <SharedElement
+            id={`landmark.${landmark.id}.photo`}
+            style={styles.topContainer}
+          >
+            <Image style={styles.image} source={{ uri: landmark.image }} />
+          </SharedElement>
+          <View style={styles.bottomContainer}>
+            <Button onPress={goBack}>Go Back</Button>
+            <Text>{landmark.name}</Text>
+            <Text>{landmark.description}</Text>
+          </View>
+        </>
+      ) : (
+        <>
+          <Button onPress={goBack}>Go Back</Button>
+          <Ionicons name="warning-outline" size={200} color={colors.red} />
+          <Text>{i18n.t('errors.landmark')}</Text>
+        </>
+      )}
     </View>
   );
 };
@@ -49,9 +66,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: {
-    height: 400,
+    flex: 1,
+  },
+  topContainer: {
+    flex: 1,
     width: '100%',
+  },
+  bottomContainer: {
+    flex: 1,
   },
 });
