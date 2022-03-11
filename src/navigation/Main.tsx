@@ -1,13 +1,13 @@
+import { CardStyleInterpolators } from '@react-navigation/stack';
 import React from 'react';
 
-import { Map } from '../screens/Map';
-import { Landmark, LandmarkRecord } from '../screens/Landmark';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
-import { CardStyleInterpolators } from '@react-navigation/stack';
+import { LandmarkScreen, Landmark } from '../screens/LandmarkScreen';
+import { MapScreen } from '../screens/MapScreen';
 
 export type MainStackParams = {
   Map: undefined;
-  Landmark: { landmark?: LandmarkRecord } | undefined;
+  Landmark: { landmark?: Landmark } | undefined;
 };
 
 const MainStack = createSharedElementStackNavigator<MainStackParams>();
@@ -19,13 +19,16 @@ export const Main = () => (
       cardStyleInterpolator: CardStyleInterpolators.forBottomSheetAndroid,
     }}
   >
-    <MainStack.Screen name="Map" component={Map} />
+    <MainStack.Screen name="Map" component={MapScreen} />
     <MainStack.Screen
       name="Landmark"
-      component={Landmark}
+      component={LandmarkScreen}
       sharedElements={route => {
         const { landmark } = route.params;
-        return [`landmark.${landmark.id}.photo`];
+        return [
+          `landmark.${landmark.id}.photo`,
+          `landmark.${landmark.id}.name`,
+        ];
       }}
     />
   </MainStack.Navigator>

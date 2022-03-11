@@ -1,7 +1,7 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
+import React from 'react';
 
-import { Map } from '../Map';
+import { MapScreen } from '../MapScreen';
 
 const mockedNavigate = jest.fn();
 
@@ -17,6 +17,6 @@ jest.mock('@react-navigation/native', () => {
 
 describe('Map', () => {
   it('renders the all the landmark markers', () => {
-    render(<Map />);
+    render(<MapScreen />);
   });
 });

@@ -1,42 +1,47 @@
 import React from 'react';
-import { StyleSheet, Text as RNText, StyleProp, TextStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text as RNText, TextStyle } from 'react-native';
 
 import colors from '../constants/colors';
 
-const styles = StyleSheet.create({
-  text: {
-    color: colors.primary,
-    fontSize: 16,
-  },
-  headerText: {
-    fontWeight: '600',
-    fontSize: 32,
-    marginBottom: 12,
-  },
-  subHeaderText: {
-    color: colors.gray,
-    fontSize: 20,
-    marginBottom: 12,
-    marginTop: -12, // assum this shows up under a headerText
-  },
-});
-
 type TextProps = {
-  type?: 'header' | 'subheader';
+  type?: 'h1' | 'h2' | 'error';
+  header?: boolean;
   children: string;
-  style?: StyleProp<TextStyle>[];
+  style?: StyleProp<TextStyle>;
 };
 
-export const Text = ({ type, children, style = [] }: TextProps) => {
+export const Text = ({ type, children, style }: TextProps) => {
   let textStyles: StyleProp<TextStyle>[] = [styles.text];
 
-  if (type === 'header') {
-    textStyles.push(styles.headerText);
-  } else if (type === 'subheader') {
-    textStyles.push(styles.subHeaderText);
+  if (type === 'h1') {
+    textStyles.push(styles.h1Text);
+  } else if (type === 'h2') {
+    textStyles.push(styles.h2Text);
+  } else if (type === 'error') {
+    textStyles.push(styles.errorText);
   }
 
-  textStyles = [...textStyles, ...style];
-
-  return <RNText style={textStyles}>{children}</RNText>;
+  return <RNText style={[...textStyles, style]}>{children}</RNText>;
 };
+
+const styles = StyleSheet.create({
+  text: {
+    color: colors.text,
+    fontSize: 16,
+    fontFamily: 'Arial',
+  },
+  h1Text: {
+    fontWeight: 'bold',
+    fontSize: 50,
+  },
+  h2Text: {
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
+  errorText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.error,
+    textAlign: 'center',
+  },
+});

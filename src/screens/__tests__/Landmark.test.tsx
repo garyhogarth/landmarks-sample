@@ -1,11 +1,11 @@
-import React from 'react';
 import { render } from '@testing-library/react-native';
+import React from 'react';
 
-import { Landmark } from '../Landmark';
+import { LandmarkScreen } from '../LandmarkScreen';
 
 describe('Landmark', () => {
   it('renders the landmark screen', () => {
-    const out = render(<Landmark />);
+    const out = render(<LandmarkScreen />);
 
     out.getByText('Landmark Screen');
   });
