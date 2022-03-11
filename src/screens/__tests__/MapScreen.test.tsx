@@ -43,20 +43,20 @@ jest.mock('@react-navigation/native', () => {
 });
 describe('Map', () => {
   it('renders the all the landmark markers', () => {
-    const setStateMock = jest.fn();
-    const useStateMock = (useState: any) => [useState, setStateMock];
-    jest.spyOn(React, 'useState').mockImplementation(useStateMock);
-
-    const { queryAllByA11yLabel } = render(<MapScreen />);
-    const markers = queryAllByA11yLabel('LandmarkMarker');
-    expect(markers.length).toEqual(5);
-  });
-  it('goes navigates to a new screen on pressing the active marker', () => {
     const { queryAllByA11yLabel } = render(<MapScreen />);
     const markers = queryAllByA11yLabel('LandmarkMarker');
 
     // Press the first marker
     fireEvent(markers[0], 'press');
+    expect(mockedNavigate).toHaveBeenCalledWith('Landmark', {
+      landmark: MOCK_LANDMARK,
+    });
+  });
+  it('goes navigates to a new screen on pressing the active marker', () => {
+    const { queryAllByA11yLabel } = render(<MapScreen />);
+    const cards = queryAllByA11yLabel('Landmark Card');
+    // Press the first marker
+    fireEvent(cards[0], 'press');
     expect(mockedNavigate).toHaveBeenCalledWith('Landmark', {
       landmark: MOCK_LANDMARK,
     });

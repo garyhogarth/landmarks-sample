@@ -7,9 +7,9 @@ import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SharedElement } from 'react-navigation-shared-element';
 import { BackButton } from '../components/BackButton';
-import { HeartButton } from '../components/HeartButton';
 import { Text } from '../components/Text';
 import colors, { palette } from '../constants/colors';
+import { LandmarkHeartButton } from '../containers/LandmarkHeartButton';
 import { MainStackParams } from '../navigation/Main';
 
 export type Landmark = {
@@ -44,7 +44,7 @@ export const LandmarkScreen = () => {
             id={`landmark.${landmark.id}.heart`}
             style={styles.heartButton}
           >
-            <HeartButton onPress={() => {}} size={54} />
+            <LandmarkHeartButton landmark={landmark} size={54} />
           </SharedElement>
           <SharedElement
             id={`landmark.${landmark.id}.photo`}

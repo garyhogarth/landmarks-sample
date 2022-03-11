@@ -4,9 +4,9 @@ import { SharedElement } from 'react-navigation-shared-element';
 import { Text } from '../components/Text';
 
 import colors from '../constants/colors';
+import { LandmarkHeartButton } from '../containers/LandmarkHeartButton';
 import { Landmark } from '../screens/LandmarkScreen';
 import { BackButton } from './BackButton';
-import { HeartButton } from './HeartButton';
 
 const { width } = Dimensions.get('screen');
 
@@ -20,12 +20,16 @@ export type LandmarkCardProps = {
 };
 export const LandmarkCard = ({ landmark, onPress }: LandmarkCardProps) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable
+      style={styles.container}
+      onPress={onPress}
+      accessibilityLabel="Landmark Card"
+    >
       <SharedElement
         id={`landmark.${landmark.id}.heart`}
         style={styles.heartButton}
       >
-        <HeartButton onPress={() => {}} size={32} />
+        <LandmarkHeartButton landmark={landmark} size={32} />
       </SharedElement>
       <SharedElement id={`landmark.${landmark.id}.photo`}>
         <Image style={styles.landmarkImage} source={{ uri: landmark.image }} />
