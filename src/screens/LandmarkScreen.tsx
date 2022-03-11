@@ -88,7 +88,7 @@ export const LandmarkScreen = () => {
   );
 };
 
-const useStyles = () => {
+export const useStyles = () => {
   const insets = useSafeAreaInsets();
   return StyleSheet.create({
     container: {

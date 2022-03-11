@@ -55,7 +55,7 @@ export const MapScreen = () => {
         ref={mapRef}
         style={styles.map}
         provider={PROVIDER_GOOGLE}
-        testID="map"
+        testID="Map"
         onMapReady={() => landmarkMarkerSelected(landmarks[0])}
       >
         {landmarks.map(landmark => (

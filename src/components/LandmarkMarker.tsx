@@ -21,6 +21,8 @@ export const LandmarkMarker = ({
       key={`landmark-${landmark.id}`}
       coordinate={landmark.latlng}
       onPress={onPress}
+      testID={`LandmarkMarker-${landmark.id}`}
+      accessibilityLabel="LandmarkMarker"
     >
       <Entypo
         name="location-pin"

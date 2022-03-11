@@ -21,6 +21,7 @@ export const BackButton = ({
       containerStyle={containerStyle}
       hitSlop={size * 0.5}
       shadow
+      testID="BackButton"
     >
       <Entypo name="chevron-thin-down" size={32} color={colors.primary} />
     </RoundButton>
