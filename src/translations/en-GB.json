@@ -1,5 +1,8 @@
 {
   "errors": {
     "landmark": "Sorry there seems to have been a problem loading the landmark you requested"
+  },
+  "actions": {
+    "goBack": "Go Back"
   }
 }
