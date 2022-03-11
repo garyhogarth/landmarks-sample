@@ -1,23 +1,26 @@
-# React Native School TypeScript Expo Template
+# Gary Hogarth Landmarks Proof of Concept App
 
-A simple Expo template with the following features:
+![QR code](./assets/screenshots/qr.png)
 
-- All TypeScript
-- Eslint & Prettier configured
-- React Navigation v6
-- Testing Configured
-- Simple project structure
-- Small component library to get started with
+[https://expo.dev/@garyhogarth/landmarks](https://expo.dev/@garyhogarth/landmarks)
 
-It's easy to create a project, strip out the few components included, and still have the architecture in place to quickly start building an app.
+Initial scaffolding based on React Native School TypeScript Expo Template - I use this to speed up development of Proof of Concepts.
+Expo has been chosen for ease of deployment/sharing and as development was done over multiple small windows of time. Therefore not having to build to develop helps a lot.
+
+![Map Screen](./assets/screenshots/video.webp)
 
 ## Usage
 
 > Be sure to have the [Expo CLI](https://docs.expo.io/workflow/expo-cli/) installed.
 
+Once checked out simply run:
+
 ```bash
-expo init --template @react-native-school/expo-typescript-template
+yarn
+expo start
 ```
+
+## Other commands
 
 - Run on iOS: `yarn ios` or `npm run ios`
 - Run on Android: `yarn android` or `npm run android`
@@ -29,14 +32,10 @@ expo init --template @react-native-school/expo-typescript-template
 
 ## Screenshots
 
-List Screen
-![List Screen](./assets/screenshots/list.png)
+![Map Screen](./assets/screenshots/map.png)
+![Map Screen](./assets/screenshots/mapHeart.png)
+![Detail Screen](./assets/screenshots/detail.png)
 
-Text Screen
-![Text Screen](./assets/screenshots/text.png)
+## Known Issues
 
-Form Screen
-![Form Screen](./assets/screenshots/form.png)
-
-Button Screen
-![Button Screen](./assets/screenshots/button.png)
+- Image is "snapping" at the end of its shared transition on Android, not present in IOS

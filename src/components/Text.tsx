@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
   text: {
     color: colors.text,
     fontSize: 16,
-    fontFamily: 'Arial',
   },
   h1Text: {
     fontWeight: 'bold',

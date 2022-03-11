@@ -67,6 +67,7 @@ const useStyles = ({ size, backgroundColor }: RoundButtonStyleProps) => {
       },
       shadowOpacity: 0.2,
       shadowRadius: 5,
+      elevation: 5,
     },
   });
 };
