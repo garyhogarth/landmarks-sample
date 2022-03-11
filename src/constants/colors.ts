@@ -1,10 +1,19 @@
-export default {
-  primary: '#202c41',
-  border: '#c6c6c6',
+export const palette = {
   white: '#fff',
-  gray: '#9ca5ab',
-  background: '#eef0f3',
-  error: '#b55464',
-  red: '#5E616D',
-  blue: '#009AFF',
+  redPale: '#5E616D',
+  red: '#F00',
+  bluePale: '#009AFF',
+  black: '#000000',
+};
+
+export default {
+  background: palette.white,
+  primary: palette.bluePale,
+  secondary: palette.redPale,
+  activeHighlight: palette.bluePale,
+  inactiveHighlight: palette.redPale,
+  shadow: palette.black,
+  text: palette.black,
+  textInverted: palette.white,
+  error: palette.red,
 };
