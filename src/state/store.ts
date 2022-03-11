@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import LandmarksSlice from './LandmarksSlice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   landmarks: LandmarksSlice,
 });
 

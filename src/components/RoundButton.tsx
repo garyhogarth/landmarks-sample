@@ -35,7 +35,11 @@ export const RoundButton = ({
   containerStyles.push(containerStyle);
 
   return (
-    <Pressable {...pressableProps} style={containerStyles}>
+    <Pressable
+      {...pressableProps}
+      style={containerStyles}
+      accessibilityRole="button"
+    >
       {children}
     </Pressable>
   );

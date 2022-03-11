@@ -6,6 +6,6 @@ import { BackButton } from '../BackButton';
 it('functions as a button', () => {
   const onPress = jest.fn();
   const output = render(<BackButton onPress={onPress} />);
-  fireEvent(output.container, 'press');
+  fireEvent(output.container, 'onPress');
   expect(onPress).toHaveBeenCalled();
 });
