@@ -1,21 +1,18 @@
-import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useCallback, useRef, useState } from 'react';
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  View,
-  FlatList,
-  Dimensions,
-} from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { SharedElement } from 'react-navigation-shared-element';
+import { StyleSheet, View, FlatList, Dimensions } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 // Importing directly from the JSON for now
 import landmarks from '../../assets/londonLandmarks.json';
-import { Text } from '../components/Text';
+import {
+  LandmarkCard,
+  LANDMARK_CARD_HEIGHT,
+  LANDMARK_CARD_MARGIN,
+  LANDMARK_CARD_WIDTH,
+} from '../components/LandmarkCard';
+import { LandmarkMarker } from '../components/LandmarkMarker';
 
 import colors from '../constants/colors';
 import { MainStackParams } from '../navigation/Main';
@@ -25,9 +22,6 @@ type MapScreenNavigationProp = StackNavigationProp<MainStackParams, 'Map'>;
 
 const { width } = Dimensions.get('screen');
 
-const LANDMARK_CARD_WIDTH = width * 0.75;
-const LANDMARK_CARD_HEIGHT = 150;
-const LANDMARK_CARD_MARGIN = 32;
 const REGION_DELTA = 0.05;
 
 export const MapScreen = () => {
@@ -65,25 +59,16 @@ export const MapScreen = () => {
         onMapReady={() => landmarkMarkerSelected(landmarks[0])}
       >
         {landmarks.map(landmark => (
-          <Marker
+          <LandmarkMarker
             key={`landmark-${landmark.id}`}
-            coordinate={landmark.latlng}
+            landmark={landmark}
+            active={focusedMarkerId === landmark.id}
             onPress={() =>
               focusedMarkerId === landmark.id
                 ? showLandmarkDetails(landmark)
                 : landmarkMarkerSelected(landmark)
             }
-          >
-            <Entypo
-              name="location-pin"
-              size={90}
-              color={
-                focusedMarkerId === landmark.id
-                  ? colors.activeHighlight
-                  : colors.inactiveHighlight
-              }
-            />
-          </Marker>
+          />
         ))}
       </MapView>
       <View style={styles.panel}>
@@ -107,28 +92,16 @@ export const MapScreen = () => {
             index,
           })}
           renderItem={({ item: landmark }) => (
-            <Pressable
-              style={styles.landmarkCard}
+            <LandmarkCard
+              landmark={landmark}
               onPress={() =>
                 focusedMarkerId === landmark.id
                   ? showLandmarkDetails(landmark)
                   : landmarkMarkerSelected(landmark)
               }
-            >
-              <SharedElement id={`landmark.${landmark.id}.photo`}>
-                <Image
-                  style={styles.landmarkImage}
-                  source={{ uri: landmark.image }}
-                />
-              </SharedElement>
-              <View style={styles.landmarkCardInner}>
-                <Text type="h2" style={styles.landmarkName}>
-                  {landmark.name}
-                </Text>
-              </View>
-            </Pressable>
+            />
           )}
-          ListFooterComponent={() => <View style={styles.landmarkCardEnd} />}
+          ListFooterComponent={() => <View style={styles.blankFillerCar} />}
         />
       </View>
     </View>
@@ -152,33 +125,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  landmarkCard: {
+  blankFillerCar: {
     borderRadius: 16,
     overflow: 'hidden',
-    width: LANDMARK_CARD_WIDTH - LANDMARK_CARD_MARGIN,
-    height: LANDMARK_CARD_HEIGHT,
-    marginLeft: LANDMARK_CARD_MARGIN,
-  },
-  landmarkCardEnd: {
-    borderRadius: 16,
-    overflow: 'hidden',
-    width:
-      width - LANDMARK_CARD_WIDTH - LANDMARK_CARD_MARGIN - LANDMARK_CARD_MARGIN,
+    width: width - LANDMARK_CARD_WIDTH - 2 * LANDMARK_CARD_MARGIN,
     height: LANDMARK_CARD_HEIGHT,
     marginHorizontal: LANDMARK_CARD_MARGIN,
-  },
-  landmarkCardInner: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
-    padding: 8,
-  },
-  landmarkImage: {
-    width: LANDMARK_CARD_WIDTH - LANDMARK_CARD_MARGIN,
-    height: LANDMARK_CARD_HEIGHT,
-  },
-  landmarkName: {
-    color: colors.textInverted,
-    textAlignVertical: 'bottom',
   },
 });

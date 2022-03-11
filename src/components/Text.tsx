@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   h1Text: {
     fontWeight: 'bold',
     fontSize: 50,
+    marginBottom: 16,
   },
   h2Text: {
     fontSize: 32,

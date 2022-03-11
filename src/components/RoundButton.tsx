@@ -4,6 +4,8 @@ import {
   Pressable,
   PressableProps,
   ColorValue,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 
 import colors from '../constants/colors';
@@ -11,17 +13,29 @@ import colors from '../constants/colors';
 type RoundButtonProps = PressableProps & {
   size?: number;
   backgroundColor?: ColorValue;
+  shadow?: boolean;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 export const RoundButton = ({
   children,
   size = 64,
   backgroundColor = colors.background,
+  containerStyle = {},
+  shadow = false,
   ...pressableProps
 }: RoundButtonProps) => {
   const styles = useStyles({ size, backgroundColor });
+
+  let containerStyles: StyleProp<ViewStyle>[] = [styles.container];
+
+  if (shadow) {
+    containerStyles.push(styles.shadow);
+  }
+  containerStyles.push(containerStyle);
+
   return (
-    <Pressable {...pressableProps} style={[styles.container, styles.shadow]}>
+    <Pressable {...pressableProps} style={containerStyles}>
       {children}
     </Pressable>
   );
@@ -38,6 +52,8 @@ const useStyles = ({ size, backgroundColor }: RoundButtonStyleProps) => {
       width: size,
       height: size,
       backgroundColor,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     shadow: {
       shadowColor: colors.shadow,

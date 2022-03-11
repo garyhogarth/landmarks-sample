@@ -28,6 +28,8 @@ export const Main = () => (
         return [
           `landmark.${landmark.id}.photo`,
           `landmark.${landmark.id}.name`,
+          `landmark.${landmark.id}.heart`,
+          `landmark.${landmark.id}.actionButton`,
         ];
       }}
     />
